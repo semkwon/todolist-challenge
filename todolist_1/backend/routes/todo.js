@@ -32,16 +32,16 @@ router.put("/done/:id", (req, res) => {
 
   console.log(todoData);
   res.json(todoData);
+});
 
-  // 왜 이렇게 하면 안될까??
-  // let parseIntId = todoData[parseInt(id)];
-  // console.log(todoData[parseInt(id)]);
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
 
-  // parseIntId = {
-  //   title: parseIntId.title,
-  //   desc: parseIntId.desc,
-  //   isDone: !parseIntId.isDone,
-  // };
+  todoData = todoData.filter((v, i) => {
+    return parseInt(id) !== i;
+  });
+  console.log(todoData);
+  res.json(todoData);
 });
 
 module.exports = router;
