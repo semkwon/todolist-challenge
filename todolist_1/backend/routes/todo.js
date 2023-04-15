@@ -24,6 +24,10 @@ router.post("/", (req, res) => {
 router.put("/done/:id", (req, res) => {
   const { id } = req.params;
 
+  if (parseInt(id) >= todoData.length) {
+    res.status(400).json({ error: "존재하지 않는 ID 입니다요." });
+  }
+
   todoData[parseInt(id)] = {
     title: todoData[parseInt(id)].title,
     desc: todoData[parseInt(id)].desc,
@@ -34,8 +38,13 @@ router.put("/done/:id", (req, res) => {
   res.json(todoData);
 });
 
+// todolist 삭제
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
+
+  if (parseInt(id) >= todoData.length) {
+    res.status(400).json({ error: "존재하지 않는 ID를 삭제하지 못합니다." });
+  }
 
   todoData = todoData.filter((v, i) => {
     return parseInt(id) !== i;
