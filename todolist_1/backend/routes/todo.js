@@ -12,8 +12,12 @@ router.get("/", (req, res) => {
 
 // todolist 생성
 router.post("/", (req, res) => {
-  console.log(req.body);
-  res.send("임시로 투두생성");
+  const { title, desc } = req.body;
+
+  todoData.push({ title, desc, idDone: false });
+  console.log(todoData);
+
+  res.json(todoData);
 });
 
 module.exports = router;
