@@ -26,6 +26,10 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   const { title, desc } = req.body;
 
+  if (!title || !desc) {
+    res.status(400).json({ error: "title과 desc 모두 입력해야 합니다." });
+  }
+
   todoData.push({ title, desc, idDone: false });
   console.log(todoData);
 
