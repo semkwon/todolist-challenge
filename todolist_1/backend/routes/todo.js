@@ -10,6 +10,18 @@ router.get("/", (req, res) => {
   res.json(todoData);
 });
 
+// 특정 todolist 저회
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+
+  if (parseInt(id) >= todoData.length) {
+    res.status(400).json({ error: "존재하지 않는 Id입니다." });
+  }
+
+  console.log(todoData[parseInt(id)]);
+  res.json(todoData[parseInt(id)]);
+});
+
 // todolist 생성
 router.post("/", (req, res) => {
   const { title, desc } = req.body;
