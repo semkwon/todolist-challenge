@@ -1,6 +1,6 @@
+import axios from "axios";
 import { useEffect } from "react";
 import TodoCard from "./components/TodoCard";
-import axios from "axios";
 
 function App() {
   const getToDoList = async () => {
@@ -8,7 +8,6 @@ function App() {
       const response = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/todo`
       );
-
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -18,7 +17,6 @@ function App() {
   useEffect(() => {
     getToDoList();
   }, []);
-
   return (
     <div className="bg-purple-100 min-h-screen flex flex-col justify-start items-center pt-16">
       <h1 className="text-4xl font-bold">😎 My First To-Do-List 😎</h1>
