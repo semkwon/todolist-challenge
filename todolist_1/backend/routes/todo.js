@@ -15,7 +15,7 @@ router.get("/:id", (req, res) => {
   const { id } = req.params;
 
   if (parseInt(id) >= todoData.length) {
-    res.status(400).json({ error: "존재하지 않는 Id입니다." });
+    return res.status(400).json({ error: "존재하지 않는 Id입니다." });
   }
 
   console.log(todoData[parseInt(id)]);
@@ -27,7 +27,9 @@ router.post("/", (req, res) => {
   const { title, desc } = req.body;
 
   if (!title || !desc) {
-    res.status(400).json({ error: "title과 desc 모두 입력해야 합니다." });
+    return res
+      .status(400)
+      .json({ error: "title과 desc 모두 입력해야 합니다." });
   }
 
   todoData.push({ title, desc, idDone: false });
@@ -42,11 +44,13 @@ router.put("/:id", (req, res) => {
   const { title, desc } = req.body;
 
   if (parseInt(id) >= todoData.length) {
-    res.status(400).json({ error: "수정할 수 없는 ID 입니다." });
+    return res.status(400).json({ error: "수정할 수 없는 ID 입니다." });
   }
 
   if (!title && !desc) {
-    res.status(400).json({ erro: "title or desc 둘 중 하나는 있어야 합니다." });
+    return res
+      .status(400)
+      .json({ erro: "title or desc 둘 중 하나는 있어야 합니다." });
   }
 
   todoData[parseInt(id)] = {
@@ -64,7 +68,7 @@ router.put("/done/:id", (req, res) => {
   const { id } = req.params;
 
   if (parseInt(id) >= todoData.length) {
-    res.status(400).json({ error: "존재하지 않는 ID 입니다요." });
+    return res.status(400).json({ error: "존재하지 않는 ID 입니다요." });
   }
 
   todoData[parseInt(id)] = {
@@ -82,7 +86,9 @@ router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
   if (parseInt(id) >= todoData.length) {
-    res.status(400).json({ error: "존재하지 않는 ID를 삭제하지 못합니다." });
+    return res
+      .status(400)
+      .json({ error: "존재하지 않는 ID를 삭제하지 못합니다." });
   }
 
   todoData = todoData.filter((v, i) => {
