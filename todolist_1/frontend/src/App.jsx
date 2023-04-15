@@ -1,14 +1,18 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import TodoCard from "./components/TodoCard";
 
 function App() {
+  const [toDoList, setToDoList] = useState();
   const getToDoList = async () => {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/todo`
       );
-      console.log(response);
+      if (response.status !== 200) {
+        alert("요청을 불러오지 못했습니다!!!");
+      }
+      setToDoList(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -39,8 +43,10 @@ function App() {
         </form>
       </div>
       <ul className="mt-16 flex flex-col -translate-x-1/2">
-        <TodoCard title={"👕 빨래하기"} />
-        <TodoCard title={"🧹 청소하기"} />
+        {toDoList &&
+          toDoList.map((v, i) => {
+            return <TodoCard key={i} title={v.title} />;
+          })}
       </ul>
     </div>
   );
