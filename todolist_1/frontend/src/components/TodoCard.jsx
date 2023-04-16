@@ -49,7 +49,12 @@ const TodoCard = ({ title, isDone, index, getToDoList }) => {
             onClick={onClickToggle}
           ></div>
           <div className="text-2xl ml-4 ">{title}</div>
-          <button onClick={onClickDelete}>삭 제</button>
+          <button
+            className="ml-4 px-2 py-1 bg-blue-300 hover:bg-blue-400 rounded-lg text-gray-50"
+            onClick={onClickDelete}
+          >
+            삭 제
+          </button>
         </li>
       )}
 
