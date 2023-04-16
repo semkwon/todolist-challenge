@@ -59,7 +59,7 @@ router.put("/:id", (req, res) => {
   res.json(todoData);
 });
 
-// 완료여부 수정
+// todolist 완료여부 수정
 router.put("/done/:id", (req, res) => {
   const { id } = req.params;
 
@@ -71,6 +71,21 @@ router.put("/done/:id", (req, res) => {
     desc: todoData[parseInt(id)].desc,
     isDone: !todoData[parseInt(id)].isDone,
   };
+  console.log(todoData);
+  res.json(todoData);
+});
+
+// todolist 삭제
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+
+  if (parseInt(id) >= todoData.length) {
+    res.status(400).json({ error: "존재하지 않는 ID입니다." });
+  }
+
+  todoData = todoData.filter((v, i) => {
+    return parseInt(id) !== i;
+  });
   console.log(todoData);
   res.json(todoData);
 });
