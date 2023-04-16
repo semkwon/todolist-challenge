@@ -7,9 +7,9 @@ app.use(express.json());
 app.use("/todo", todoRouter);
 
 app.get("/", (req, res) => {
-  res.send("Hello, Express!! 🚀🚀");
+  res.send("Hello, Express! 🧑‍💻");
 });
 
 app.listen(port, () => {
-  console.log(`Server listening on port: ${port} 🚀🚀🚀`);
+  console.log(`Server listening on port: ${port} 🙂🙃🙂`);
 });
