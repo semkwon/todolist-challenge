@@ -31,7 +31,7 @@ function App() {
         </div>
         <div className="text-xs text-center">Live here and now</div>
 
-        <CreateTodo />
+        <CreateTodo getToDoList={getToDoList} />
       </div>
       <ul className="mt-16 flex flex-col -translate-x-1/2">
         {toDoList &&
