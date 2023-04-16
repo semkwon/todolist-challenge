@@ -1,9 +1,21 @@
-import { useState } from "react";
+import axios from "axios";
 
-const TodoCard = ({ title }) => {
-  const [isDone, setIsDone] = useState(false);
+const TodoCard = ({ title, isDone, index, getToDoList }) => {
+  const onClickToggle = async () => {
+    try {
+      const response = await axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/todo/done/${index}`
+      );
+      if (response.status !== 200) {
+        alert("데이터를 불러오지 못했습니다.");
+        return;
+      }
+      getToDoList();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  const onClickToggle = () => setIsDone(!isDone);
   return (
     <>
       {isDone ? (

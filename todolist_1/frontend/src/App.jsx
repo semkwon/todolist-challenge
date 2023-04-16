@@ -36,7 +36,15 @@ function App() {
       <ul className="mt-16 flex flex-col -translate-x-1/2">
         {toDoList &&
           toDoList.map((v, i) => {
-            return <TodoCard key={i} title={v.title} />;
+            return (
+              <TodoCard
+                key={i}
+                title={v.title}
+                isDone={v.isDone}
+                index={i}
+                getToDoList={getToDoList}
+              />
+            );
           })}
       </ul>
     </div>
