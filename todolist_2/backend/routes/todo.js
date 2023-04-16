@@ -59,4 +59,19 @@ router.put("/:id", (req, res) => {
   res.json(todoData);
 });
 
+// 완료여부 수정
+router.put("/done/:id", (req, res) => {
+  const { id } = req.params;
+
+  if (parseInt(id) >= todoData.length) {
+    return res.status(400).json({ error: "존재하지 않는 ID입니다." });
+  }
+  todoData[parseInt(id)] = {
+    title: todoData[parseInt(id)].title,
+    desc: todoData[parseInt(id)].desc,
+    isDone: !todoData[parseInt(id)].isDone,
+  };
+  console.log(todoData);
+  res.json(todoData);
+});
 module.exports = router;
