@@ -40,7 +40,12 @@ const TodoCard = ({ title, isDone, index, getToDoList }) => {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-white bg-pink-400 w-8 h-8 scale-75 rounded-xl"></div>
           </div>
           <div className="text-2xl ml-4 line-through">{title}</div>
-          <button onClick={onClickDelete}>삭 제</button>
+          <button
+            className="ml-4 px-2 py-1 bg-blue-300 hover:bg-blue-400 rounded-lg text-gray-50"
+            onClick={onClickDelete}
+          >
+            삭 제
+          </button>
         </li>
       ) : (
         <li className="flex my-4">
