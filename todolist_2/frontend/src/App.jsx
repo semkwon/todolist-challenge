@@ -1,4 +1,32 @@
+import axios from "axios";
+import TodoCard from "./components/TodoCard";
+import { useEffect, useState } from "react";
+import CreateToDo from "./components/CreateToDo";
+
 function App() {
+  const [toDoList, setToDoList] = useState();
+
+  const getToDoList = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/todo`
+      );
+
+      if (response.status !== 200) {
+        alert("요청을 불러오지 못했습니다.");
+        return;
+      }
+
+      setToDoList(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getToDoList();
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col justify-start items-center pt-16">
       <h1 className="text-4xl font-bold">🌷 AWESOME TO DO LIST 🌷</h1>
@@ -11,31 +39,21 @@ function App() {
           과거가 널 아프게 할 수도 있다. 하지만 과거에서 도망치는 것도 과거에서
           배우는 것도 네 선택이다. - 라이온 킹 🦁
         </div>
-        <form className="flex mt-2">
-          <input
-            className="grow border-2 border-pink-200 rounded-lg focus:outline-pink-400 px-2 py-1 text-lg"
-            type="text"
-          />
-          <input
-            className="ml-4 px-2 py-1 bg-pink-300 hover:bg-pink-400 rounded-lg text-gray-50"
-            type="submit"
-            value="todo 생성"
-          />
-        </form>
+        <CreateToDo getToDoList={getToDoList} />
       </div>
       <ul className="mt-16 flex flex-col w-1/2">
-        <li className="flex my-4">
-          <div className="border-4 border-pink-400 w-8 h-8 rounded-xl"></div>
-          <div className="text-2xl ml-4 ">🧹 청소하기</div>
-        </li>
-        {/* 완료처리 */}
-        <li className="flex my-4">
-          <div className="relative">
-            <div className="border-4 border-pink-400 w-8 h-8 rounded-xl"></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-white bg-pink-400 w-8 h-8 scale-75 rounded-xl"></div>
-          </div>
-          <div className="text-2xl ml-4 line-through">👕 빨래하기</div>
-        </li>
+        {toDoList &&
+          toDoList.map((v, i) => {
+            return (
+              <TodoCard
+                key={i}
+                title={v.title}
+                isDone={v.isDone}
+                index={i}
+                getToDoList={getToDoList}
+              />
+            );
+          })}
       </ul>
     </div>
   );
